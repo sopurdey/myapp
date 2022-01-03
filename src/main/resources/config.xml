@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- pour utiliser les annotations -->
+	<context:annotation-config />
+
+	<!-- pout trouver les classes de service -->
+	<context:component-scan base-package="myapp.imp" />
+
+	<!-- logger sur Stderr (logger par défaut) -->
+	<!-- <bean id="stderrLogger" class="myapp.imp.StderrLogger" primary="true" 
+		/> -->
+
+	<!-- logger sur tmp/myapp.log -->
+	<bean id="fileLogger" class="myapp.imp.BeanFileLogger">
+		<property name="fileName">
+			<value>tmp/myapp.log</value>
+		</property>
+	</bean>
+
+	<!-- calculatrice qui trace sur Stderr -->
+	<bean id="calculator" class="myapp.imp.SimpleCalculator" />
+	<!-- <property name="logger" ref="stderrLogger" /> </bean> -->
+
+	<!-- calculatrice qui trace sur un fichier
+	<bean id="calculator" class="myapp.imp.SimpleCalculator">
+		<property name="logger" ref="fileLogger" />
+	</bean>
+	 -->
+</beans>

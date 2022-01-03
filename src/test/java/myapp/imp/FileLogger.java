@@ -5,6 +5,9 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import myapp.services.ILogger;
 
 public class FileLogger implements ILogger {
@@ -20,10 +23,12 @@ public class FileLogger implements ILogger {
 		}
 	}
 	
+	@PostConstruct
 	public void start() {
 		System.err.println("Start " + this);
 	}
 	
+	@PreDestroy
 	public void stop() {
 		writer.close();
 		System.err.println("Stop " + this);

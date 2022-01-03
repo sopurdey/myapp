@@ -6,6 +6,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import myapp.services.ILogger;
 
 public class BeanFileLogger implements ILogger {
@@ -17,6 +20,7 @@ public class BeanFileLogger implements ILogger {
 	private PrintWriter writer;
 
 	// lancer le service
+	@PostConstruct
 	public void start() {
 		if (fileName == null) {
 			throw new IllegalStateException("no fileName");
@@ -31,6 +35,7 @@ public class BeanFileLogger implements ILogger {
 	}
 
 	// arrêter le service
+	@PreDestroy
 	public void stop() {
 		writer.close();
 		System.err.println("Stop " + this);
