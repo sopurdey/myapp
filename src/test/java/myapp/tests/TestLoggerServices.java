@@ -88,4 +88,24 @@ public class TestLoggerServices {
 		logger.stop();
 	}
 
+	@Test
+	public void testCalculatorAndBeanFileLogger() {
+		// créer et lancer le logger service (stderr)
+		BeanFileLogger logger = new BeanFileLogger();
+		// set le paramètre
+		logger.setFileName("tmp/myapp.log");
+		// lancer le service
+		logger.start();
+		// créer; injecter et lancer le calculator service
+		SimpleCalculator calculator = new SimpleCalculator();
+		calculator.setLogger(logger);
+		calculator.start();
+		// utiliser lle calculator service
+		use(calculator);
+		// arrêter le calculator service
+		calculator.stop();
+		// arrêter le logger service
+		logger.stop();
+	}
+
 }
